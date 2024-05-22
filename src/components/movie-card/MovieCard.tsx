@@ -16,6 +16,7 @@ function MovieCard({ movie }: MovieCardProp) {
 	function handleToggleBookmark(movieId: string) {
 		dispatch({ type: 'TOGGLE BOOKMARK', id: movieId })
 	}
+
 	return (
 		<Card
 			variant="outlined"
@@ -26,17 +27,59 @@ function MovieCard({ movie }: MovieCardProp) {
 				border: 'none',
 			}}
 		>
-			<CardContent sx={{ p: 0, position: 'relative' }}>
+			<CardContent sx={{ p: 0 }}>
 				<Grid
 					container
 					spacing={1}
+					sx={{ position: 'relative' }}
 				>
-					<Grid item>
-						<img
-							src={movie.thumbnail.regular.large}
-							alt=""
-							style={{ width: '400px', height: '180px', borderRadius: '8px' }}
-						/>
+					<Grid
+						item
+						xs={12}
+					>
+						<Box
+							sx={{
+								position: 'relative',
+								width: '100%',
+								borderRadius: '8px',
+								overflow: 'hidden',
+							}}
+						>
+							<img
+								src={movie.thumbnail.regular.large}
+								alt=""
+								style={{ width: '100%', height: 'auto', display: 'block' }}
+							/>
+							<Box
+								sx={{
+									position: 'absolute',
+									top: 0,
+									right: 0,
+									padding: '16px',
+								}}
+							>
+								<Box
+									sx={{
+										width: '40px',
+										height: '40px',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										backgroundColor: '#000',
+										borderRadius: '50%',
+										cursor: 'pointer',
+										'&:hover': { opacity: 0.8 },
+									}}
+									onClick={() => handleToggleBookmark(movie.id)}
+								>
+									{movie.isBookmarked ? (
+										<BookmarkIcon fill={'#E0E0E0'} />
+									) : (
+										<BookmarkEmptyIcon />
+									)}
+								</Box>
+							</Box>
+						</Box>
 					</Grid>
 					<Grid
 						item
@@ -94,48 +137,23 @@ function MovieCard({ movie }: MovieCardProp) {
 								/>
 							</Grid>
 							<Grid item>
-                <Typography
-                  fontSize={10}
-                  color="#E0E0E0"
-                  aria-label="movie rating"
-                >
-                  {movie.rating}
-                </Typography>
-              </Grid>
-
+								<Typography
+									fontSize={10}
+									color="#E0E0E0"
+									aria-label="movie rating"
+								>
+									{movie.rating}
+								</Typography>
+							</Grid>
 						</Grid>
-            <Typography aria-label="movie rating" padding={0} color="#E0E0E0">
-              {movie.title}
-            </Typography>
+						<Typography
+							aria-label="movie title"
+							padding={0}
+							color="#E0E0E0"
+						>
+							{movie.title}
+						</Typography>
 					</Grid>
-          <Box
-					sx={{
-						position: 'absolute',
-						top: 0,
-            left: 0,
-						right: 0,
-						display: 'flex',
-						justifyContent: 'flex-end',
-						padding: '16px',
-					}}
-				>
-					<Box
-						sx={{
-							p: '1rem',
-							backgroundColor: '#000',
-							borderRadius: '100%',
-							cursor: 'pointer',
-							'&: hover': { opacity: 0.8 },
-						}}
-            onClick={()=>handleToggleBookmark(movie.id)}
-					>
-            {movie.isBookmarked ? (
-              <BookmarkIcon fill={"#E0E0E0"} />
-            ) : (
-              <BookmarkEmptyIcon />
-            )}
-          </Box>
-				</Box>
 				</Grid>
 			</CardContent>
 		</Card>

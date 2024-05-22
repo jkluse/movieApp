@@ -24,7 +24,11 @@ function Layout({ children }: LayoutProps) {
 			}}
 		>
 			<Sidebar />
-			<Box sx={{ width: '100%', overflowY: 'scroll' }}>{children}</Box>
+			<Box
+				sx={{overflowY: 'scroll' }}
+			>
+				{children}
+			</Box>
 		</Box>
 	)
 }
